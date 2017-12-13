@@ -24,11 +24,11 @@ var totalAnalysisRequests = 0;
 var completeAnalysisRequests = 0;
 
 var rootDir = './uploads';
-var MIN_TILE_SIZE = 200;
+var MIN_TILE_SIZE = 64;
 
 // PUT YOUR WATSON KEY AND CLASSIFIER ID HERE:
-var WATSON_KEY = "";
-var WATSON_CLASSIFIER = "";
+var WATSON_KEY = "589511cb2a31e3379cda2a13b59ee9ff21e93455";
+var WATSON_CLASSIFIER = "ParkingSpaceDetector1_1254136001"; //"ParkingLot_1593156007";PKLot2_652205709
 
 
 var visual_recognition = new VisualRecognitionV3({

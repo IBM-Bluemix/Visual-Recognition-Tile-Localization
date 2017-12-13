@@ -1,7 +1,11 @@
 var id = new Date().getTime();
 var scaleSlider = undefined;
 
+var emptySpaces = 0;
+var fullSpaces = 0;
+
 Dropzone.options.uploader = {
+    createImageThumbnails: false,
     acceptedFiles: "image/jpeg,image/jpg",
     uploadMultiple: false,
     sending: function(file, xhr, formData) {
@@ -84,6 +88,7 @@ function renderResult(dataStr) {
     var renderContainer = $("#render");
 
     renderContainer.append($("<img class='' src='" + data.imagePath + "'  />"));
+    //renderContainer.append($("<div>" + emptySpaces + "</div>"));
 
     $.ajax({
             type: 'GET',
@@ -170,6 +175,17 @@ function getConfidence(cellData) {
                 // however could be modified to support multiple classifiers
 
                 var classification = classifier.classes[0];
+
+                if (classification.score > 0.4) {
+                  //console.log(counter + 1);
+                  emptySpaces++;
+                } else {
+                  fullSpaces++;
+                }
+
+                console.log("full: " + fullSpaces);
+                console.log("empty: " + emptySpaces);
+
                 return classification.score.toFixed(3)
             }
         }

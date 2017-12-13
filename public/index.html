@@ -1,68 +1,78 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <title>Watson Visual Recognition Classifier</title>
+  <head>
+    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.2.0/bootstrap-slider.js"></script>
+
+    <!-- Title -->
+    <title>2Park</title>
+
+    <!-- Styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.2.0/css/bootstrap-slider.min.css">
     <link rel="stylesheet" href="./stylesheets/style.css">
-    <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
+    <!--<link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" />
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.2.0/bootstrap-slider.js"></script>
     <script src="./scripts/dropzone.js"></script>
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
     <script src="./scripts/client.js"></script>
-    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-</head>
+  </head>
+  <body>
 
+    <div id="content" style="background-color: #006d5d;">
+      <div class="dropContainer">
+        <form action="/file-upload" class="dropzone" id="uploader" enctype="multipart/form-data" style="padding: 2em;">
 
+          <!-- Bruna's placeholder here -->
+          <div class="dz-message" data-dz-message>
+            <img style="width: 120px;" src="img/logo.png" />
+            <div style="padding: 4em 2em; text-align: center;">
+              <div style="color: #e4e4e4; font-family: IBM Plex Sans; font-size: x-large; font-weight: bold; padding-bottom: 1.5em;">
+                Discover parking spots near you
+              </div>
+              <div style="color: #e4e4e4; font-family: Menlo; font-size: small; padding-top: 6em;">
+                < Drop a file here >
+              </div>
+              <div style="color: #e4e4e4; font-family: Menlo; font-size: small; padding-top: 2.5em;">
+                —
+              </div>
+              <div style="color: #e4e4e4; font-family: Menlo; font-size: small; padding-top: 2.5em;">
+                (Imagine that we're in the future and this is a live feed from a real parking lot)
+              </div>
+            </div>
+          </div>
 
-<body>
+          <input name="tileWidth" value="64" type="hidden" step="1" />
+          <input name="tileHeight" value="64" type="hidden" step="1" />
 
-    <div id="content">
+          <div class="fallback">
+            <input name="file" type="file" />
+            <input type="submit" value="Upload" />
+          </div>
 
-        <div class="dropContainer">
-
-
-            <form action="/file-upload" class="dropzone" id="uploader" enctype="multipart/form-data">
-
-                <h1 id="heading">
-                    Welcome to the Watson Visual Recognition Slicer/Classifier!
-                </h1>
-
-                <div class="dz-message" data-dz-message><span>Just drag and drop image files from your desktop into the browser here, and they will be sliced up and analyzed using the IBM Watson Visual Recognition service, using a custom classifier of your choice.</span></div>
-
-                <input name="tileWidth" value="200" type="hidden" step="1" />
-                <input name="tileHeight" value="200" type="hidden" step="1" />
-
-                <div class="fallback">
-                    <input name="file" type="file" />
-                    <input type="submit" value="Upload" />
-                </div>
-            </form>
-
-        </div>
-        <div id="feedback"></div>
-
+        </form>
+      </div>
+      <div id="feedback"></div>
     </div>
 
-    <div id="render-parent" class="hidden">
-        <div id="render" class="container-fluid"></div>
+    <div id="render-parent" class="hidden" style="background-color: #006d5d;">
+      <img style="width: 120px;" src="img/logo.png" />
+      <div id="render" style="text-align: center;"></div>
     </div>
 
-
+    <div>
+    </div>
 
     <div id="footerControls" class="hidden">
-        <input id="scaleSlider" data-slider-min="0.2" data-slider-max="2" data-slider-step="0.01" data-slider-value="1" /> &nbsp;&nbsp;&nbsp;&nbsp; Overlay:
-        <input id="overlayToggle" type="checkbox" checked data-toggle="toggle" data-onstyle="info" data-offstyle="danger" data-on="Visible" data-off="Hidden">
+      <input id="scaleSlider" data-slider-min="0.2" data-slider-max="2" data-slider-step="0.01" data-slider-value="1" style="display: none;"/>
+      <input id="overlayToggle" type="checkbox" checked data-toggle="toggle" data-onstyle="info" data-offstyle="danger" data-on="" data-off="" style="padding-left: 4em;">
     </div>
-
-</body>
-
-
+  </body>
 </html>
